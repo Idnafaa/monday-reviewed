@@ -6,6 +6,8 @@ Writes a single original one-line review of my own Monday
 """
 import os
 
+MAX_CHARS = 200
+
 REVIEW = (
     "One star: Monday woke me at 5 a.m. to announce my weekend had been "
     "cancelled due to a scheduling conflict \u2014 with Monday."
@@ -13,8 +15,10 @@ REVIEW = (
 
 def main():
     text = REVIEW.strip()
-    if not 1 <= len(text) <= 200:
-        raise ValueError(f"review is {len(text)} characters, must be 1-200")
+    if not 1 <= len(text) <= MAX_CHARS:
+        raise ValueError(
+            f"review is {len(text)} characters, must be 1-{MAX_CHARS}"
+        )
     if "\n" in text or "\r" in text:
         raise ValueError("review must be exactly one line")
     os.makedirs("/output", exist_ok=True)
